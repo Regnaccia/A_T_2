@@ -1,0 +1,4 @@
+binary_sensors:
+  - id:     "brain_online"
+    name:   "PY Brain Brain Online"
+    type:   "output"
