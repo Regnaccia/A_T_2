@@ -22,7 +22,7 @@ def load_system(log_mode, base_path):
     # ---------------------------------------------------------------
 
     # loading system configuration
-    system_config_path = Path("/01_config/00_system/00_system.yaml")
+    system_config_path = Path("/config/00_system/00_system.yaml")
     path = Path(str(base_path) + str(system_config_path))
 
     system_config_raw = file_loader(path)
