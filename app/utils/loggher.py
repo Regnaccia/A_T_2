@@ -15,3 +15,6 @@ def log(mode,text:str,print_if):
     if print_if == "debug" and debug:
         print(text)
 
+def indent_level(text:str ,level:int=0):
+    indent = "  " * level
+    return indent + text

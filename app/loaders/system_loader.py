@@ -1,57 +1,17 @@
 from pathlib import Path
-import yaml
-from app.loaders.yaml_file_loader import file_loader
+from app.loaders.yaml_loader import file_loader
 from app.loaders.sensors_loader import sensor_loader
 
 from app.validators.system_config_validator import validate_system_config
 from app.validators.system_config_validator import validate_mqtt_config
-from app.validators.system_config_validator import validate_package_config
 from app.validators.router_config_validator import validate_router_config
 
-from app.log.loggher import log
+from app.utils.loggher import log
+from app.utils.loggher import indent_level
+from app.utils.url import resolve_path
 
-def load_system(log_mode, base_path):
-    text = "⏳ Loading System"
-    log(log_mode, text, print_if="verbouse")
-
+def load_system(log_mode, base_path, system_file):
     # ---------------------------------------------------------------
-
-    text = "     ⏳ Loading Configuration"
-    log(log_mode, text, print_if="verbouse")
-
-    # ---------------------------------------------------------------
-
-    # loading system configuration
-    system_config_path = Path("/config/00_system/00_system.yaml")
-    path = Path(str(base_path) + str(system_config_path))
-
-    system_config_raw = file_loader(path)
-    text = "     ✅ System configuration loaded successfully:"
-    log(log_mode, text, print_if="verbouse")
-
-    # validating system configuration
-    system_config = validate_system_config(system_config_raw)
-    text = "     ✅ System configuration validated successfully:"
-    log(log_mode, text, print_if="verbouse")
-
-    for key, el in system_config:
-        text = key + ": " + str(el)
-        log(log_mode, text, print_if="debug")
-
-    # ---------------------------------------------------------------
-
-    # loading instances package
-    instances_package_path = system_config.instances_package
-    path = Path(str(base_path) + str(instances_package_path))
-
-    instances_package_raw = file_loader(path)
-    text = "     ✅ Instances package loaded successfully:"
-    log(log_mode, text, print_if="verbouse")
-
-    # validating instances package
-    instances_package = validate_package_config(instances_package_raw)
-    text = "     ✅ Instances package validated successfully:"
-    log(log_mode, text, print_if="verbouse")
 
     # ---------------------------------------------------------------
     # loading instances routers
