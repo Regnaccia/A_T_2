@@ -1,5 +1,5 @@
 from pathlib import Path
-from app.assembler.configuration_assembler import Configuration
+from app.assembler.configuration_assembler import ConfigurationAssebbler
 
 # log_mode = "debug"
 log_mode = "verbouse"
@@ -9,12 +9,14 @@ log_mode = "verbouse"
 base_path = Path(__file__).parent
 system_file = "config\\00_system\\00_system.yaml"
 
-validated_config = Configuration(
+configuration = ConfigurationAssebbler(
     log_mode = log_mode,
     base_path = base_path,
     system_file = system_file
     )
 
-validated_config.print_config()
+configuration.assemble()
+
+configuration.print_config()
 
 # load_system(log_mode, base_path, system_file)
