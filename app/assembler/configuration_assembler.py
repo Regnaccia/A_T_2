@@ -2,7 +2,7 @@ from app.utils.loggher import log, indent_level
 
 from app.assembler.system_assembler import SystemAssembler
 from app.assembler.instance_assembler import InstanceAssembler
-from app.assembler.mqtt_assembler import MqttAssembler
+
 
 
 class ConfigurationAssebbler:
