@@ -17,6 +17,6 @@ configuration = ConfigurationAssebbler(
 
 configuration.assemble()
 
-configuration.print_config()
+# configuration.print_config()
 
 # load_system(log_mode, base_path, system_file)
