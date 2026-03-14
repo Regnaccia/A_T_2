@@ -62,7 +62,6 @@ class ConfigurationAssebbler:
                 text = indent_level("⏳ Loading Instances",1)
                 log(self.log_mode, text, print_if="verbouse")
 
-
     def print_config(self):
         self.system_config.print_config()
         print ("----------")
