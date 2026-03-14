@@ -1,5 +1,6 @@
 from pathlib import Path
 from app.assembler.configuration_assembler import ConfigurationAssebbler
+from app.builder.configuration_builder import configuration_builder
 
 # log_mode = "debug"
 log_mode = "verbouse"
@@ -16,5 +17,7 @@ configuration = ConfigurationAssebbler(
     )
 
 configuration.assemble()
+configuration.build()
+print(configuration.built_config)
+# configuration.print_config()
 
-configuration.print_config()

@@ -18,6 +18,7 @@ class InstanceAssembler:
         self.router_path = instance.router
 
         self.router = None
+        self.sensors = None
 
     def assemble(self):
         text = indent_level(f"⚙️ Assembling Instance {self.name}",2)
@@ -29,6 +30,7 @@ class InstanceAssembler:
         log(self.log_mode,text,"verbouse")
         sensors = self._load_and_validate_sensors()
         sensors = self._aggragate_sensors_by_type(sensors)
+        sensors = self._add_zone_to_sensor(sensors)
         self.sensors = self._validate_sensors(sensors)
         
     def _load_and_validate_router(self):
@@ -65,14 +67,17 @@ class InstanceAssembler:
 
         return aggregated
 
+    def _add_zone_to_sensor(self,sensors):
+        for sensor_type in sensors:
+            sensor_list = sensor_type
+            for sensor in sensors[sensor_type]:
+                sensor['parent'] = self.id
+        return sensors
+
     def _validate_sensors(self,sensors):
         validated = validate_instance_sensor_model(sensors, self.log_mode)
         return validated
         
-        
-        
-
-
     def print_config(self):
         print(13*"- " + f" INSTANCE {self.name} CONFIG " + 13*"- ")
         for e in self.__dict__:

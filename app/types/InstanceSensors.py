@@ -6,20 +6,32 @@ class BaseSensor(BaseModel):
     id: str
     name: str
     type: Literal["internal", "input", "output"]
+    parent: str
 
 class Sensor(BaseSensor):
-    pass
+    domain: str = "sensor" 
 
 class BinarySensor(BaseSensor):
-    pass
+    domain: str = "binary_sensor" 
+
+class Select(BaseSensor):
+    domain: str = "select" 
 
 class InstanceSensorManifest(BaseModel):
     sensor: list[Sensor] = Field(default_factory=list)
     binary_sensor: list[BinarySensor] = Field(default_factory=list)
+    select: list[Select] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def normalize_entities(self):
-        all_ids = [x.id for x in self.sensor] + [x.id for x in self.binary_sensor]
+        l = []
+        l.append( [x.id for x in self.sensor] )
+        l.append( [x.id for x in self.binary_sensor] )
+        l.append( [x.id for x in self.select] )
+
+        all_ids = []
+        for e in l:
+            all_ids = all_ids + e
         counts = Counter(all_ids)
         duplicates = [k for k, v in counts.items() if v > 1]
         if duplicates:
